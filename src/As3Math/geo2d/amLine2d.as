@@ -76,9 +76,9 @@ package As3Math.geo2d
 		public override function clone():amEntity2d
 			{  return new amLine2d(point1.clone(), point2.clone(), lineType);  }
 			
-		public override function scaleBy(value:Number, origin:amPoint2d = null):amEntity2d
+		public override function scaleBy(xValue:Number, yValue:Number, origin:amPoint2d = null):amEntity2d
 		{
-			point1.scaleBy(value, origin);  point2.scaleBy(value, origin);
+			point1.scaleBy(xValue, yValue, origin);  point2.scaleBy(xValue, yValue, origin);
 			return this;
 		}
 		

@@ -232,19 +232,19 @@ package As3Math.geo2d
 			return this;
 		}
 		
-		public override function scaleBy(value:Number, origin:amPoint2d = null):amEntity2d
+		public override function scaleBy(xValue:Number, yValue:Number, origin:amPoint2d = null):amEntity2d
 		{
 			freezeCallbacks = true;
 			{
 				for ( var i:int = 0; i < verts.length; i++ )
-					verts[i].scaleBy(value, origin);  // this calls pointUpdated, which in turn calls update()...that's why update is frozen.
+					verts[i].scaleBy(xValue, yValue, origin);  // this calls pointUpdated, which in turn calls update()...that's why update is frozen.
 			}
 			freezeCallbacks = false;
 			
-			_centerOfMass.scaleBy(value, origin);
+			_centerOfMass.scaleBy(xValue, yValue, origin);
 			
 			for ( i = 0; i < intersections.length; i++ )
-				intersections[i].point.scaleBy(value, origin);
+				intersections[i].point.scaleBy(xValue, yValue, origin);
 			
 			generalPropsValidated = false;  // this function invalidates perimeter and area.
 			sendCallbacks();

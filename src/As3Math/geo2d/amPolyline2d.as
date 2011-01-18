@@ -147,10 +147,10 @@ package As3Math.geo2d
 		public override function clone():amEntity2d
 			{  return new amPolyline2d(this.asPoints());  }
 		
-		public override function scaleBy(value:Number, origin:amPoint2d = null):amEntity2d
+		public override function scaleBy(xValue:Number, yValue:Number, origin:amPoint2d = null):amEntity2d
 		{
 			for ( var i:int = 0; i < verts.length; i++ )
-				verts[i].scaleBy(value, origin);
+				verts[i].scaleBy(xValue, yValue, origin);
 			update(false);
 			return this;
 		}
