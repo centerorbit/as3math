@@ -47,7 +47,7 @@ package As3Math.geo2d
 		
 		
 		
-		public virtual function scaleBy(value:Number, origin:amPoint2d = null):amEntity2d { return this; }
+		public virtual function scaleBy(xValue:Number, yValue:Number, origin:amPoint2d = null):amEntity2d { return this; }
 		
 		public virtual function rotateBy(radians:Number, origin:amPoint2d = null):amEntity2d { return this; }
 		

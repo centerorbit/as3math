@@ -174,7 +174,7 @@ package As3Math.geo2d
 		public function translatedBy(vector:amVector2d ):amPoint2d
 			{  return this.clone().translateBy(vector);  }
 			
-		public function scaleBy(value:Number, origin:amPoint2d = null):amPoint2d
+		public function scaleBy(xValue:Number, yValue:Number, origin:amPoint2d = null):amPoint2d
 		{
 			freezeSendings = true;
 			
@@ -182,12 +182,12 @@ package As3Math.geo2d
 			{
 				var vec:amVector2d = internalReusable.set().minus(origin);
 				this.translateBy(vec);
-				_x *= value;  _y *= value;
+				_x *= xValue;  _y *= yValue;
 				this.translateBy(vec.negate());
 			}
 			else
 			{
-				_x *= value;  _y *= value;
+				_x *= xValue;  _y *= yValue;
 			}
 			
 			freezeSendings = false;
@@ -196,8 +196,8 @@ package As3Math.geo2d
 			return this;
 		}
 
-		public function scaledBy(value:Number, origin:amPoint2d = null):amPoint2d
-			{  return this.clone().scaleBy(value, origin);  }
+		public function scaledBy(xValue:Number, yValue:Number, origin:amPoint2d = null):amPoint2d
+			{  return this.clone().scaleBy(xValue, yValue, origin);  }
 			
 		public function rotateBy(radians:Number, origin:amPoint2d = null):amPoint2d
 		{
@@ -265,10 +265,10 @@ package As3Math.geo2d
 			return points;
 		}
 		
-		public static function scaleBy(points:Vector.<amPoint2d>, value:Number, origin:amPoint2d = null):Vector.<amPoint2d>
+		public static function scaleBy(points:Vector.<amPoint2d>, xValue:Number, yValue:Number, origin:amPoint2d = null):Vector.<amPoint2d>
 		{
 			for ( var i:int = 0; i < points.length; i++ )
-				points[i].scaleBy(value, origin);
+				points[i].scaleBy(xValue, yValue, origin);
 			return points;
 		}
 		

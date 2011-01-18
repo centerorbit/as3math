@@ -206,8 +206,8 @@ package As3Math.geo2d
 			return this.clone() as amBoundBox2d;
 		}
 		
-		public override function scaleBy(value:Number, origin:amPoint2d = null):amEntity2d
-			{  min.scaleBy(value, origin);  max.scaleBy(value, origin);  return this;  }
+		public override function scaleBy(xValue:Number, yValue:Number, origin:amPoint2d = null):amEntity2d
+			{  min.scaleBy(xValue, yValue, origin);  max.scaleBy(xValue, yValue, origin);  return this;  }
 		
 		public override function rotateBy(radians:Number, origin:amPoint2d = null):amEntity2d
 			{  throw new Error(amErrors.ILLEGAL_ROTATION_ERROR_MSG);  }
