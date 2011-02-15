@@ -36,7 +36,9 @@ package As3Math.geo2d
 	use namespace am_friend;
 
 	public final class amVector2d extends amEntity
-	{	
+	{
+		public var userData:* = null;
+		
 		am_friend var _x:Number, _y:Number;
 		
 		public static const xVec:amVector2d     = new amVector2d(1, 0);

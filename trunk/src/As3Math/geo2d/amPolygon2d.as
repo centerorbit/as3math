@@ -518,7 +518,7 @@ package As3Math.geo2d
 					var vec1:amVector2d = ithPnt.minus(prevPnt);
 					var vec2:amVector2d = nextPnt.minus(ithPnt);
 					var cross:Number = vec1.x * vec2.y - vec2.x * vec1.y;
-					var subIsPositive:Boolean = cross >= 0;
+					var subIsPositive:Boolean = cross > 0;
 					if (i == 0)
 						isPositive = subIsPositive;
 					else if (isPositive != subIsPositive)

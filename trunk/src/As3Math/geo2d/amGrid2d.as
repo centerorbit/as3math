@@ -440,7 +440,7 @@ package As3Math.geo2d
 							graphics.drawRect(xPos, yPos, quadWid, quadHei);
 						}
 					}
-					else if ( val == fillDef && drawRule == RULE_STRICT || (val & fillDef) && drawRule == RULE_BITWISE )
+					else if ( val == fillDef && drawRule == DRAW_RULE_STRICT || (val & fillDef) && drawRule == DRAW_RULE_BITWISE )
 					{
 						xPos = x + tracked[i] * quadWid;
 						yPos = y + tracked[i+1] * quadHei;
@@ -464,7 +464,7 @@ package As3Math.geo2d
 								graphics.drawRect(xPos, yPos, quadWid, quadHei);
 							}
 						}
-						else if ( coords[i][j] == fillDef && drawRule == RULE_STRICT || (coords[i][j] & fillDef) && drawRule == RULE_BITWISE )
+						else if ( coords[i][j] == fillDef && drawRule == DRAW_RULE_STRICT || (coords[i][j] & fillDef) && drawRule == DRAW_RULE_BITWISE )
 						{
 							xPos = x + i * quadWid;
 							yPos = y + j * quadHei;

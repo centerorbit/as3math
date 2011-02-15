@@ -37,6 +37,8 @@ package As3Math.geo2d
 
 	public class amPoint2d extends amEntity
 	{
+		public var userData:* = null;
+		
 		am_friend var _x:Number, _y:Number;
 		
 		public static const reusable:amPoint2d = new amPoint2d(0, 0);
