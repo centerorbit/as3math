@@ -46,7 +46,7 @@ package As3Math.geo2d
 			var base:amPoint2d = amUtils.fixPoint(initBase);
 			return new amLine2d(base, base.translatedBy(initVector), type);
 		}
-			
+
 		public function set(newPoint1:amPoint2d, newPoint2:amPoint2d, type:uint = LINE_TYPE_SEGMENT):void
 			{  point1 = newPoint1;  point2 = newPoint2;  lineType = type;  }
 			
@@ -344,28 +344,28 @@ package As3Math.geo2d
 		 * @param radianTolerance In the case of two infinite lines, this is the tolerance that determines whether they are parallel.  If they are not parallel, they intersect.
 		 * @return Whether or not there is intersection between the two lines.
 		 */
-		public function intersectsLine( otherLine:amLine2d, outputIntPoint:amPoint2d = null, distanceTolerance:Number = 0, radianTolerance:Number = 0 ):Boolean
+		public function intersectsLine( otherLine:amLine2d, outputIntPoint:amPoint2d = null, intersectionTolerance:Number = 0, radianTolerance:Number = 0 ):Boolean
 		{
 			var pair:Object = intersectionHelper(otherLine);
 			if ( pair )
 			{
 				var intersecting:Boolean = false;
 				
-				if ( lineType == LINE_TYPE_SEGMENT && otherLine.lineType == LINE_TYPE_SEGMENT && amUtils.isWithin(pair.ua, 0, 1, distanceTolerance) && amUtils.isWithin(pair.ub, 0, 1, distanceTolerance) )
+				if ( lineType == LINE_TYPE_SEGMENT && otherLine.lineType == LINE_TYPE_SEGMENT && amUtils.isWithin(pair.ua, 0, 1, intersectionTolerance) && amUtils.isWithin(pair.ub, 0, 1, intersectionTolerance) )
 					intersecting = true;
-				else if ( lineType == LINE_TYPE_RAY && otherLine.lineType == LINE_TYPE_SEGMENT && pair.ua >= 0-distanceTolerance && amUtils.isWithin(pair.ub, 0, 1, distanceTolerance) )
+				else if ( lineType == LINE_TYPE_RAY && otherLine.lineType == LINE_TYPE_SEGMENT && pair.ua >= 0-intersectionTolerance && amUtils.isWithin(pair.ub, 0, 1, intersectionTolerance) )
 					intersecting = true;
-				else if ( lineType == LINE_TYPE_SEGMENT && otherLine.lineType == LINE_TYPE_RAY && amUtils.isWithin(pair.ua, 0, 1, distanceTolerance) && pair.ub >= 0-distanceTolerance )
+				else if ( lineType == LINE_TYPE_SEGMENT && otherLine.lineType == LINE_TYPE_RAY && amUtils.isWithin(pair.ua, 0, 1, intersectionTolerance) && pair.ub >= 0-intersectionTolerance )
 					intersecting = true;
-				else if ( lineType == LINE_TYPE_RAY && otherLine.lineType == LINE_TYPE_RAY && pair.ua >= 0-distanceTolerance && pair.ub >= 0-distanceTolerance )
+				else if ( lineType == LINE_TYPE_RAY && otherLine.lineType == LINE_TYPE_RAY && pair.ua >= 0-intersectionTolerance && pair.ub >= 0-intersectionTolerance )
 					intersecting = true;
-				else if ( lineType == LINE_TYPE_SEGMENT && otherLine.lineType == LINE_TYPE_INFINITE && amUtils.isWithin(pair.ua, 0, 1, distanceTolerance) )
+				else if ( lineType == LINE_TYPE_SEGMENT && otherLine.lineType == LINE_TYPE_INFINITE && amUtils.isWithin(pair.ua, 0, 1, intersectionTolerance) )
 					intersecting = true;
-				else if ( lineType == LINE_TYPE_INFINITE && otherLine.lineType == LINE_TYPE_SEGMENT && amUtils.isWithin(pair.ub, 0, 1, distanceTolerance) )
+				else if ( lineType == LINE_TYPE_INFINITE && otherLine.lineType == LINE_TYPE_SEGMENT && amUtils.isWithin(pair.ub, 0, 1, intersectionTolerance) )
 					intersecting = true;
-				else if ( lineType == LINE_TYPE_RAY && otherLine.lineType == LINE_TYPE_INFINITE && pair.ua >= 0-distanceTolerance )
+				else if ( lineType == LINE_TYPE_RAY && otherLine.lineType == LINE_TYPE_INFINITE && pair.ua >= 0-intersectionTolerance )
 					intersecting = true;
-				else if ( lineType == LINE_TYPE_INFINITE && otherLine.lineType == LINE_TYPE_RAY && pair.ub >= 0-distanceTolerance )
+				else if ( lineType == LINE_TYPE_INFINITE && otherLine.lineType == LINE_TYPE_RAY && pair.ub >= 0-intersectionTolerance )
 					intersecting = true;
 				else if ( lineType == LINE_TYPE_INFINITE && otherLine.lineType == LINE_TYPE_INFINITE && !this.isParallelTo(otherLine, radianTolerance) )
 					intersecting = true;
@@ -377,7 +377,153 @@ package As3Math.geo2d
 				}	
 			}
 			return false;
-		}		
+		}
+		
+		public function intersectsCircle(circle:amCircle2d, outputPoints:Vector.<amPoint2d>, intersectionTolerance:Number):Boolean
+		{
+			var lineDir:amVector2d = this.direction;
+			var lineOrigin:amPoint2d = this.midpoint;
+			
+			var data:Object = linetoCircleIntersectionHelper(lineOrigin, lineDir, circle.center, circle.radius, intersectionTolerance);
+			var numIntPoints:int = data.rootCount;
+			var intersects:Boolean = numIntPoints > 0 ;
+			var t:Array = data.t;
+			
+			if ( intersects && outputPoints)
+			{
+				if ( lineType == LINE_TYPE_INFINITE )
+				{
+					// nothing to do here.
+				}
+				else if ( lineType == LINE_TYPE_RAY )
+				{
+					if (numIntPoints == 1)
+					{
+						if (t[0] < 0.0 )
+						{
+							numIntPoints = 0;
+						}
+					}
+					else
+					{
+						if (t[1] < 0.0 )
+						{
+							numIntPoints = 0;
+						}
+						else if (t[0] < 0.0 )
+						{
+							numIntPoints = 1;
+							t[0] = t[1];
+						}
+					}
+				}
+				else if ( lineType == LINE_TYPE_SEGMENT )
+				{
+					var extent:Number = this.length / 2;
+					
+					if (numIntPoints == 1)
+					{
+						if (Math.abs(t[0]) > extent )
+						{
+							numIntPoints = 0;
+						}
+					}
+					else
+					{
+						if (t[1] < -extent || t[0] > extent )
+						{
+							numIntPoints = 0;
+						}
+						else
+						{
+							if (t[1] <= extent )
+							{
+								if (t[0] < -extent )
+								{
+									numIntPoints = 1;
+									t[0] = t[1];
+								}
+							}
+							else
+							{
+								numIntPoints = (t[0] >= -extent ? 1 : 0);
+							}
+						}
+					}
+				}
+				
+				for (var i:int = 0; i < numIntPoints; i++)
+				{
+					outputPoints.push(lineOrigin.translatedBy(lineDir.scaledBy(t[i])))
+				}
+			}
+			
+			return intersects;
+		}
+		
+		private function linetoCircleIntersectionHelper(lineOrigin:amPoint2d, lineDir:amVector2d, circleCenter:amPoint2d, circleRadius:Number, tol:Number):Object
+		{
+			var diff:amVector2d = lineOrigin.minus(circleCenter);
+			var a0:Number = diff.lengthSquared - circleRadius * circleRadius;
+			var a1:Number = lineDir.dotProduct(diff);
+			var discr:Number = a1 * a1 - a0;
+			
+			var returnObj:Object = { };
+			if ( discr > tol )
+			{
+				returnObj.rootCount = 2;
+				discr = Math.sqrt(discr);
+				returnObj.t = [ -a1 - discr, -a1 + discr];
+			}
+			else if ( discr < -tol )
+			{
+				returnObj.rootCount = 0;
+			}
+			else
+			{
+				returnObj.rootCount = 1;
+				returnObj.t = [ -a1];
+			}
+			
+			return returnObj;
+			
+			/*template <typename Real>
+			bool IntrLine2Circle2<Real>::Find (const Vector2<Real>& origin,
+				const Vector2<Real>& direction, const Vector2<Real>& center,
+				Real radius, int& rootCount, Real t[2])
+			{
+				// Intersection of a the line P+t*D and the circle |X-C| = R.  The line
+				// direction is unit length. The t value is a root to the quadratic
+				// equation:
+				//   0 = |t*D+P-C|^2 - R^2
+				//     = t^2 + 2*Dot(D,P-C)*t + |P-C|^2-R^2
+				//     = t^2 + 2*a1*t + a0
+				// If two roots are returned, the order is T[0] < T[1].
+
+				Vector2<Real> diff = origin - center;
+				Real a0 = diff.SquaredLength() - radius*radius;
+				Real a1 = direction.Dot(diff);
+				Real discr = a1*a1 - a0;
+				if (discr > Math<Real>::ZERO_TOLERANCE)
+				{
+					rootCount = 2;
+					discr = Math<Real>::Sqrt(discr);
+					t[0] = -a1 - discr;
+					t[1] = -a1 + discr;
+				}
+				else if (discr < -Math<Real>::ZERO_TOLERANCE)
+				{
+					rootCount = 0;
+				}
+				else  // discr == 0
+				{
+					rootCount = 1;
+					t[0] = -a1;
+				}
+
+				return rootCount != 0;
+			}*/
+		}
 		
 		private function intersectionHelper(otherLine:amLine2d):Object
 		{
@@ -396,9 +542,15 @@ package As3Math.geo2d
 					return { nume_a:nume_a, nume_b:nume_b }; // (coincident)
 				return { nume_a:nume_a, nume_b:nume_b };     // (parallel)
 			}
-
-			var ua:Number = nume_a / denom;
-			var ub:Number = nume_b / denom;
+			else if ( isFinite(denom) )
+			{
+				var ua:Number = nume_a / denom;
+				var ub:Number = nume_b / denom;
+			}
+			else
+			{
+				ua = ub = 0.0;
+			}
 			
 			return { nume_a:nume_a, nume_b:nume_b, ua:ua, ub:ub };
 		}
