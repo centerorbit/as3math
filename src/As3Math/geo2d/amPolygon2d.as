@@ -27,6 +27,7 @@ package As3Math.geo2d
 	import As3Math.general.amSettings;
 	import As3Math.general.amEntity;
 	import As3Math.general.amUpdateEvent;
+	import As3Math.misc.am_intersectionFlags;
 	import flash.display.Graphics;
 	
 	import As3Math.am_friend;
@@ -571,6 +572,49 @@ package As3Math.geo2d
 			}
 			
 			intersectionsValidated = true;
+		}
+		
+		private static var utilLine:amLine2d = new amLine2d();
+		private static var utilPoint:amPoint2d = new amPoint2d();
+		
+		public function intersectsLine(line:amLine2d, outputPoints:Vector.<amPoint2d>, intersectionTolerance:Number = 0, distanceToPointTolerance:Number = 0):Boolean
+		{
+			var numVerts:int = verts.length;
+			for (var j:uint = 0; j < numVerts; j++) 
+			{
+				var edgeBeg:amPoint2d = verts[j];
+				var edgeEnd:amPoint2d = verts[(j + 1) % numVerts];
+				utilLine.set(edgeBeg, edgeEnd);
+				
+				if ( line.intersectsLine(utilLine, utilPoint, intersectionTolerance) )
+				{
+					if ( !outputPoints )
+					{
+						return true;
+					}
+					
+					var newIntPoint:amPoint2d = utilPoint.clone();
+					outputPoints.push(newIntPoint);
+					
+					newIntPoint.userData = am_intersectionFlags.CURVE_TO_CURVE;
+					var intIndex:uint = j;
+					
+					//--- Determine if the slice line goes through a vertex or the "meat" of an edge.
+					if ( newIntPoint.distanceTo(edgeBeg) < distanceToPointTolerance )
+					{
+						newIntPoint.userData |= am_intersectionFlags.CURVE_TO_POINT;
+					}
+					else if ( newIntPoint.distanceTo(edgeEnd) < distanceToPointTolerance )
+					{
+						newIntPoint.userData |= am_intersectionFlags.CURVE_TO_POINT;
+						intIndex = ++j;
+					}
+					
+					newIntPoint.userData |= intIndex << 16;
+				}
+			}
+			
+			return outputPoints && outputPoints.length;
 		}
 		
 		public override function equals(otherEntity:amEntity2d, tolerance:Number = 0, pointEqualityMode:uint = AM_EQUALITY_DISTANCE_TO):Boolean

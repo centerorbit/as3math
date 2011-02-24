@@ -25,6 +25,7 @@ package As3Math.geo2d
 	import As3Math.consts.AM_EQUALITY_DISTANCE_TO;
 	import As3Math.general.amSettings;
 	import As3Math.general.amUtils;
+	import As3Math.misc.am_intersectionFlags;
 	import flash.display.Graphics;
 
 	public class amLine2d extends amCurve2d
@@ -454,7 +455,9 @@ package As3Math.geo2d
 				
 				for (var i:int = 0; i < numIntPoints; i++)
 				{
-					outputPoints.push(lineOrigin.translatedBy(lineDir.scaledBy(t[i])))
+					var point:amPoint2d = lineOrigin.translatedBy(lineDir.scaledBy(t[i]));
+					point.userData = am_intersectionFlags.CURVE_TO_CURVE;
+					outputPoints.push(point )
 				}
 			}
 			
