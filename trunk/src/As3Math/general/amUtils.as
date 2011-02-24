@@ -30,6 +30,9 @@ package As3Math.general
 	{
 		public static function getRandInt(startValue:int, endValue:int):int
 			{  return Math.round(Math.random() * (endValue - startValue) + startValue);  }
+		
+		public static function getRandFloat(startValue:Number, endValue:Number):Number
+			{  return Math.round(Math.random() * (endValue - startValue) + startValue);  }
 
 		public static function equals( var1:Number, var2:Number, tolerance:Number = .001 ):Boolean
 			{  return isWithin(var1, var2 - tolerance, var2 + tolerance);  }
