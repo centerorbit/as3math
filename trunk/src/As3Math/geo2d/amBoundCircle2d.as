@@ -23,7 +23,7 @@
 package As3Math.geo2d
 {
 	import As3Math.*;
-	import flash.display.Graphics;
+	import flash.display.*;
 
 	public class amBoundCircle2d extends amBoundArea2d
 	{

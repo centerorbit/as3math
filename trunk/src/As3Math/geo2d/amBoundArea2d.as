@@ -22,9 +22,8 @@
 
 package As3Math.geo2d
 {
-	import As3Math.consts.AM_EQUALITY_DISTANCE_TO;
-	import As3Math.general.amErrors;
-	import As3Math.general.amSettings;
+	import As3Math.consts.*;
+	import As3Math.general.*;
 
 	public class amBoundArea2d extends amEntity2d
 	{
