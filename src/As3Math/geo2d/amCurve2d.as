@@ -22,7 +22,7 @@
 
 package As3Math.geo2d
 {
-	import As3Math.general.amErrors;
+	import As3Math.general.*;
 
 	public class amCurve2d extends amEntity2d
 	{

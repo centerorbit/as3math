@@ -22,13 +22,10 @@
 
 package As3Math.geo2d
 {
-	import As3Math.consts.AM_EQUALITY_DISTANCE_TO;
-	import As3Math.general.amErrors;
-	import As3Math.general.amSettings;
-	import As3Math.general.amUtils;
+	import As3Math.consts.*;
+	import As3Math.general.*;
 	import flash.display.*;
-	import flash.display.Graphics;
-	import flash.geom.Rectangle;
+	import flash.geom.*;
 
 	public class amBoundBox2d extends amBoundArea2d
 	{
