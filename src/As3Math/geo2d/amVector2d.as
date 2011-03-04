@@ -221,6 +221,12 @@ package As3Math.geo2d
 
 		public function negate():amVector2d
 			{  _x *= -1;  _y *= -1;  sendCallbacks();  return this;  }
+			
+		public function square():amVector2d
+			{  scaleBy(length);  return this;  }
+			
+		public function squared():amVector2d
+			{  return this.clone().square();  }
 
 		public function negated():amVector2d
 			{  return this.clone().negate();  }
