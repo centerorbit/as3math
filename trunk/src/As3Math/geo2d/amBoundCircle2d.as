@@ -24,6 +24,7 @@ package As3Math.geo2d
 {
 	import As3Math.*;
 	import flash.display.*;
+	import surrender.srGraphics2d;
 
 	public class amBoundCircle2d extends amBoundArea2d
 	{
@@ -60,9 +61,7 @@ package As3Math.geo2d
 			return this;
 		}
 		
-		
-			
-		public function draw(graphics:Graphics):void
+		public function draw(graphics:srGraphics2d):void
 		{
 			graphics.drawCircle(center.x, center.y, radius);
 		}

@@ -31,6 +31,7 @@ package As3Math.geo2d
 	import As3Math.consts.*;
 	import flash.geom.Point;
 	import flash.utils.Dictionary;
+	import surrender.srGraphics2d;
 	
 	import As3Math.am_friend;
 	use namespace am_friend;
@@ -311,7 +312,7 @@ package As3Math.geo2d
 			return false;
 		}
 
-		public function draw(graphics:Graphics, radius:Number = 5, drawCrossHairs:Boolean = true ):void
+		public function draw(graphics:srGraphics2d, radius:Number = 5, drawCrossHairs:Boolean = true ):void
 		{
 			graphics.drawCircle(x, y, radius);
 			
@@ -323,7 +324,7 @@ package As3Math.geo2d
 			graphics.lineTo(x, y + radius);
 		}
 		
-		public function drawAsArrow(graphics:Graphics, direction:amVector2d, size:Number = 5 ):void
+		public function drawAsArrow(graphics:srGraphics2d, direction:amVector2d, size:Number = 5 ):void
 		{
 			var pnt:amPoint2d = this.clone();
 			var vec:amVector2d = direction.normal.negate().scaleBy(size).rotateBy(RAD_45);

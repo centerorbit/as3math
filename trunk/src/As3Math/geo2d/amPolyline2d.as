@@ -26,6 +26,7 @@ package As3Math.geo2d
 	import As3Math.general.amSettings;
 	import flash.display.Graphics;
 	import As3Math.geo2d.amPoint2d;
+	import surrender.srGraphics2d;
 	
 	import As3Math.am_friend;
 	use namespace am_friend;
@@ -387,7 +388,7 @@ package As3Math.geo2d
 		}
 
 		//--- Draws this polyline to the given graphics object.
-		public function draw(graphics:Graphics, vertexRadius:Number = 5 ):void
+		public function draw(graphics:srGraphics2d, vertexRadius:Number = 5 ):void
 		{
 			if ( verts.length == 1)
 			{

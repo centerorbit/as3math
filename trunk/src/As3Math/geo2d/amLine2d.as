@@ -27,6 +27,7 @@ package As3Math.geo2d
 	import As3Math.general.amUtils;
 	import As3Math.misc.am_intersectionFlags;
 	import flash.display.Graphics;
+	import surrender.srGraphics2d;
 
 	public class amLine2d extends amCurve2d
 	{
@@ -807,7 +808,7 @@ package As3Math.geo2d
 		}
 
 		//--- Draws this line to the given graphics object.
-		public function draw(graphics:Graphics, endPointSize:Number = 0 ):void
+		public function draw(graphics:srGraphics2d, endPointSize:Number = 0 ):void
 		{
 			if ( endPointSize )
 			{

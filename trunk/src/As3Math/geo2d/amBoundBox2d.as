@@ -26,6 +26,7 @@ package As3Math.geo2d
 	import As3Math.general.*;
 	import flash.display.*;
 	import flash.geom.*;
+	import surrender.srGraphics2d;
 
 	public class amBoundBox2d extends amBoundArea2d
 	{
@@ -391,7 +392,7 @@ package As3Math.geo2d
 			max = temp;
 		}
 		
-		public function draw(graphics:Graphics, cornerSize:Number = 0):void
+		public function draw(graphics:srGraphics2d, cornerSize:Number = 0):void
 		{
 			var sides:Vector.<amLine2d> = asLines();
 			for ( var i:int = 0; i < sides.length; i++ )
