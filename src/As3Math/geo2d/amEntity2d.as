@@ -27,6 +27,8 @@ package As3Math.geo2d
 	import As3Math.general.*;
 	import As3Math.geo2d.*;
 	import flash.events.*;
+	import surrender.srGraphics2d;
+	import surrender.srIDrawable2d;
 	
 	use namespace am_friend;
 

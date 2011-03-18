@@ -29,6 +29,7 @@ package As3Math.geo2d
 	import As3Math.general.amUpdateEvent;
 	import As3Math.misc.am_intersectionFlags;
 	import flash.display.Graphics;
+	import surrender.srGraphics2d;
 	
 	import As3Math.am_friend;
 	use namespace am_friend;
@@ -685,7 +686,7 @@ package As3Math.geo2d
 			graphics.lineTo(verts[0].x, verts[0].y);
 		}
 		
-		public function drawAsSpline(graphics:Graphics, vertexRadius:Number = 0 ):void
+		public function drawAsSpline(graphics:srGraphics2d, vertexRadius:Number = 0 ):void
 		{
 			if ( !verts.length )  return;
 			

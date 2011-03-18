@@ -25,13 +25,14 @@ package As3Math.general
 	import As3Math.consts.*;
 	import As3Math.geo2d.*;
 	import flash.display.*;
+	import surrender.srGraphics2d;
 	
 	public class amGraphics
 	{
 		private static var closedSplineRatio:Number = .41414141414141;
 		private static const refVec:amVector2d = new amVector2d(0, -1);
 		
-		public static function drawCubicSpline(graphics:Graphics, startTangent:amVector2d, endTangent:amVector2d, points:Vector.<amPoint2d>, doMoveTo:Boolean = true):void
+		public static function drawCubicSpline(graphics:srGraphics2d, startTangent:amVector2d, endTangent:amVector2d, points:Vector.<amPoint2d>, doMoveTo:Boolean = true):void
 		{
 			if( doMoveTo )  graphics.moveTo(points[0].x, points[0].y);
 			
@@ -142,7 +143,7 @@ package As3Math.general
 			}
 		}
 	
-		public static function drawClosedCubicSpline(graphics:Graphics, points:Vector.<amPoint2d>, drawSplineTangents:Boolean = false ):void
+		public static function drawClosedCubicSpline(graphics:srGraphics2d, points:Vector.<amPoint2d>, drawSplineTangents:Boolean = false ):void
 		{
 			graphics.moveTo(points[0].x, points[0].y);
 			
@@ -265,16 +266,16 @@ package As3Math.general
 					else if ( secondVio )
 						graphics.lineStyle(lineWidth, 0x00ff00);
 					else*/
-						graphics.lineStyle(lineWidth, 0xffffff);
+						graphics.setLineStyle(lineWidth, 0xffffff);
 					ithEdge.draw(graphics);
 					
-					graphics.lineStyle(lineWidth, 0x0000ff);
+					graphics.setLineStyle(lineWidth, 0x0000ff);
 					splitterVec.draw(graphics, ghostVertex);
 					
-					graphics.lineStyle(lineWidth, 0xffff00);
+					graphics.setLineStyle(lineWidth, 0xffff00);
 					ithTangent.draw(graphics, ghostVertex);
 					
-					graphics.lineStyle(lineWidth, 0xff0000);
+					graphics.setLineStyle(lineWidth, 0xff0000);
 					nextTangent.draw(graphics, ghostVertex);
 				}
 				
@@ -332,7 +333,7 @@ package As3Math.general
 					
 					if ( drawSplineTangents )
 					{
-						graphics.lineStyle(lineWidth, 0xffffff);
+						graphics.setLineStyle(lineWidth, 0xffffff);
 						splitterVec.draw(graphics, midwayPoint);
 						
 						graphics.moveTo(ithPoint.x, ithPoint.y);

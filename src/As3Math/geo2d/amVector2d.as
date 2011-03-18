@@ -31,6 +31,7 @@ package As3Math.geo2d
 	import As3Math.general.amEntity;
 	import As3Math.general.amUpdateEvent;
 	import flash.display.Graphics;
+	import surrender.srGraphics2d;
 	
 	import As3Math.am_friend;
 	use namespace am_friend;
@@ -353,7 +354,7 @@ package As3Math.geo2d
 				return Math.PI + (Math.PI - angleTo(new amVector2d(0, -1)));
 		}
 		
-		public function draw(graphics:Graphics, base:amPoint2d, baseRadius:Number = 0, arrowSize:Number = 5, scale:Number = 1, makeBaseTheEndOfTheVector:Boolean = false ):void
+		public function draw(graphics:srGraphics2d, base:amPoint2d, baseRadius:Number = 0, arrowSize:Number = 5, scale:Number = 1, makeBaseTheEndOfTheVector:Boolean = false ):void
 		{
 			var beg:amPoint2d, end:amPoint2d;
 			var vec:amVector2d = scale == 1 ? this : this.scaledBy(scale);
