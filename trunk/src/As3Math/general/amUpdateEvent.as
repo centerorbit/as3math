@@ -25,20 +25,21 @@ package As3Math.general
 	import As3Math.*;
 	import As3Math.general.*;
 	import flash.events.*;
+	import revent.rEvent;
 	use namespace am_friend;
 	
-	public class amUpdateEvent extends Event 
+	public class amUpdateEvent extends rEvent 
 	{
 		public static const ENTITY_UPDATED:String = "entityUpdated";
 		
 		am_friend var _entity:amEntity = null;
 		
-		public function amUpdateEvent(type:String) 
+		public function amUpdateEvent(type:String = null) 
 		{ 
 			super(type);
 		}
 		
-		public override function clone():Event 
+		public override function clone():rEvent 
 		{ 
 			var clonedEvent:amUpdateEvent = new amUpdateEvent(type);
 			clonedEvent._entity = this._entity;
