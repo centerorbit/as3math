@@ -25,42 +25,16 @@ package As3Math.general
 	import As3Math.am_friend;
 	import As3Math.general.amUpdateEvent;
 	import flash.events.EventDispatcher;
+	import revent.rEventDispatcher;
 	
 	use namespace am_friend;
 	
 	/** Abstract base class for all 2d and 3d geometric entities.
 	 */
-	public class amEntity extends EventDispatcher
+	public class amEntity extends rEventDispatcher
 	{
+		am_friend static const CACHED_UPDATE_EVENT:amUpdateEvent = new amUpdateEvent();
 		
-		public function amEntity() {}
-		
-		am_friend static const ENTITY_UPDATED_BIT:uint = 0x00000001;
-		
-		am_friend static const cachedEvent_entityUpdated:amUpdateEvent = new amUpdateEvent(amUpdateEvent.ENTITY_UPDATED);
-		
-		am_friend static const EVENT_TYPE_TO_FLAG_DICT:Object =
-		{
-			entityUpdated: ENTITY_UPDATED_BIT
-		};
-		
-		am_friend var eventFlags:uint = 0;
-		
-		public override function addEventListener(type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = false):void
-		{
-			super.addEventListener(type, listener, useCapture, priority, useWeakReference);
-			
-			eventFlags |= (EVENT_TYPE_TO_FLAG_DICT[type] as uint);
-		}
-		
-		public override function removeEventListener (type:String, listener:Function, useCapture:Boolean = false) : void
-		{
-			super.removeEventListener(type, listener, useCapture);
-			
-			if ( !hasEventListener(type) ) // clear the bit for this event if the object isn't listening for it anymore.
-			{
-				eventFlags &= ~EVENT_TYPE_TO_FLAG_DICT[type] as uint;
-			}
-		}
+		public function amEntity() { }
 	}
 }

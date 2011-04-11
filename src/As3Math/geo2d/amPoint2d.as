@@ -57,12 +57,10 @@ package As3Math.geo2d
 		{
 			if ( freezeSendings )  return;
 			
-			if ( this.eventFlags & amEntity.ENTITY_UPDATED_BIT )
-			{
-				var evt:amUpdateEvent = amEntity.cachedEvent_entityUpdated;
-				evt._entity = this;
-				dispatchEvent(evt);
-			}
+			var evt:amUpdateEvent = CACHED_UPDATE_EVENT.inUse ? new amUpdateEvent() : CACHED_UPDATE_EVENT;
+			evt.type = amUpdateEvent.ENTITY_UPDATED;
+			evt._entity = this;
+			dispatchEvent(evt);
 		}
 		
 		public static function newPoint(initX:Number = 0, initY:Number = 0):amPoint2d

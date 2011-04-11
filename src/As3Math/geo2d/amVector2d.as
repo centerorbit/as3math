@@ -68,12 +68,10 @@ package As3Math.geo2d
 			
 		private function sendCallbacks():void
 		{
-			if ( this.eventFlags & amEntity.ENTITY_UPDATED_BIT )
-			{
-				var evt:amUpdateEvent = amEntity.cachedEvent_entityUpdated;
-				evt._entity = this;
-				dispatchEvent(evt);
-			}
+			var evt:amUpdateEvent = CACHED_UPDATE_EVENT.inUse ? new amUpdateEvent() : CACHED_UPDATE_EVENT;
+			evt.type = amUpdateEvent.ENTITY_UPDATED;
+			evt._entity = this;
+			dispatchEvent(evt);
 		}
 		
 		public function set( newX:Number = 0, newY:Number = 0 ):amVector2d

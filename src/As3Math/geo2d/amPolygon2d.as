@@ -142,12 +142,9 @@ package As3Math.geo2d
 		{
 			if ( freezeCallbacks )  return;
 		
-			if ( this.eventFlags & amEntity.ENTITY_UPDATED_BIT )
-			{
-				var evt:amUpdateEvent = amEntity.cachedEvent_entityUpdated;
-				evt._entity = this;
-				dispatchEvent(evt);
-			}
+			var evt:amUpdateEvent = CACHED_UPDATE_EVENT.inUse ? new amUpdateEvent() : CACHED_UPDATE_EVENT;
+			evt.type = amUpdateEvent.ENTITY_UPDATED;
+			dispatchEvent(evt);
 		}
 		
 		private function pointUpdated(evt:amUpdateEvent):void
