@@ -1,0 +1,1 @@
+As3Math is an extensible, object-oriented, event-firing math library geared towards games.  For now the focus is on 2d geometry (points, vectors, lines, bounding representations, polygons, and so on), with plans in the future for adding a similar module for 3d.
